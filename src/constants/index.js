@@ -1,4 +1,4 @@
-import { deepFreeze } from "utils/deepFreeze";
+import { deepFreeze } from 'utils/deepFreeze';
 
 export const API_END_POINT = process.env.REACT_APP_API_URL;
 export const USER_TOKEN_KEY = 'userToken';

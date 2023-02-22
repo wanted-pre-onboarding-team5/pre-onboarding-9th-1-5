@@ -23,12 +23,15 @@ export const postSignUp = async (userAccount) => {
 export const postSignIn = async (userAccount) => {
   try {
     const response = await loginInstance.post('/signin', userAccount);
-    const { access_token: accessToken } = response.data;
+    const { access_token } = response.data;
     if (response.status === 200) {
-      localStorage.setItem(USER_TOKEN_KEY, accessToken);
+      localStorage.setItem(USER_TOKEN_KEY, { accessToken: access_token });
     }
-    return { accessToken };
   } catch (err) {
     console.error(err);
   }
+};
+
+export const postSignOut = () => {
+  localStorage.removeItem(USER_TOKEN_KEY);
 };

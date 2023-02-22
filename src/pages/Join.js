@@ -7,8 +7,10 @@ import { handleError } from 'utils/handleError';
 import Sign from 'components/Sign';
 import validator from 'utils/validator';
 import { message } from 'constants/message';
+import useRedirect from 'hooks/useRedirect';
 
 const Join = () => {
+  useRedirect();
   const navigate = useNavigate();
   const [userData, setUserDate] = useState({
     email: '',

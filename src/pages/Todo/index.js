@@ -10,15 +10,10 @@ export const Todo = () => {
 
   const fetchTodos = async () => {
     const fetchTodos = await getTodos();
-    // setTodos(getTodos2);
   };
 
   useEffect(() => {
     fetchTodos();
-    // const token = localStorage.getItem('token');
-    // if (token) {
-    //   getTodos();
-    // } else window.location.replace('/signin');
   }, []);
 
   return (

@@ -1,4 +1,5 @@
 import Button from 'components/public/Button';
+import { PROPERTY } from 'constants';
 
 const CardDisplay = ({ todoData, modify, setModify }) => {
   const handleModify = () => {
@@ -6,28 +7,28 @@ const CardDisplay = ({ todoData, modify, setModify }) => {
   };
 
   return (
-    <label style={{ display: modify ? 'none' : 'flex' }}>
-      <input type='checkbox' defaultChecked={todoData.isCompleted} onChange={() => {}} />
+    <label style={ { display: modify ? PROPERTY.display.hide : PROPERTY.display.show } }>
+      <input type={ PROPERTY.isCompleted.type } defaultChecked={ todoData.isCompleted } onChange={ () => { } } />
       <span
-        style={{
-          textDecorationLine: todoData.isCompleted ? 'line-through' : 'none',
-        }}
+        style={ {
+          textDecorationLine: todoData.isCompleted ? PROPERTY.display.isCompleted : PROPERTY.display.notCompleted,
+        } }
       >
-        {todoData.todo}
+        { todoData.todo }
       </span>
       <Button
-        ButtonData={{
-          text: '수정',
+        ButtonData={ {
+          text: PROPERTY.modifyModeButton.text,
+          testId: PROPERTY.modifyModeButton.testId,
           handleClick: handleModify,
-          testId: 'modify-button',
-        }}
+        } }
       />
       <Button
-        ButtonData={{
-          text: '삭제',
-          handleClick: () => {},
-          testId: 'delete-button',
-        }}
+        ButtonData={ {
+          text: PROPERTY.deleteButton.text,
+          testId: PROPERTY.deleteButton.testId,
+          handleClick: () => { },
+        } }
       />
     </label>
   );

@@ -6,6 +6,7 @@ import { MESSAGE } from 'constants';
 import { handleError } from 'utils/handleError';
 import validator from 'utils/validator';
 import { dispatchContext } from 'context/TodoProvider';
+import { PROPERTY } from 'constants';
 
 const CardCreate = () => {
   const dispatch = useContext(dispatchContext);
@@ -35,21 +36,21 @@ const CardCreate = () => {
   return (
     <div>
       <Input
-        InputData={{
-          testId: 'new-todo-input',
-          type: 'text',
-          placeholder: '할 일을 적어주세요.',
+        InputData={ {
+          testId: PROPERTY.newTodoInput.testId,
+          type: PROPERTY.newTodoInput.type,
+          placeholder: PROPERTY.newTodoInput.placeholder,
           defaultValue: todo,
           onChange: onChangeTodo,
           inputRef: inputRef,
-        }}
+        } }
       />
       <Button
-        ButtonData={{
-          text: '추가',
-          testId: 'new-todo-add-button',
+        ButtonData={ {
+          text: PROPERTY.newTodoAddButton.text,
+          testId: PROPERTY.newTodoAddButton.testId,
           handleClick: handleCreate,
-        }}
+        } }
       />
     </div>
   );

@@ -1,4 +1,5 @@
 import { postSignOut } from 'apis/loginApi';
+import { PROPERTY } from 'constants';
 import { MESSAGE } from 'constants';
 import { useNavigate } from 'react-router-dom';
 
@@ -13,7 +14,7 @@ const Header = () => {
   return (
     <div>
       <h1>To Do List</h1>
-      <button onClick={onLogout}>로그아웃</button>
+      <button onClick={ onLogout }>{ PROPERTY.signOutButton.text }</button>
     </div>
   );
 };

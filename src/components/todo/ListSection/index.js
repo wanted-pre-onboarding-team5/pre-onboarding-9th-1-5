@@ -1,36 +1,25 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import Card from '../Card';
 import { getTodos } from 'apis/todoApi';
 import { handleError } from 'utils/handleError';
+import { dispatchContext, todoContext } from 'context/TodoProvider';
 
 const ListSection = () => {
-  const [todoList, setTodoList] = useState([]);
+  const todoList = useContext(todoContext);
+  const dispatch = useContext(dispatchContext);
 
   useEffect(() => {
     const getTodoList = () => {
       getTodos()
-        .then(() => {
-          setTodoList([
-            {
-              id: 1,
-              todo: 'todo2',
-              isCompleted: false,
-              userId: 1,
-            },
-            {
-              id: 2,
-              todo: 'todo3',
-              isCompleted: false,
-              userId: 1,
-            },
-          ]);
+        .then((res) => {
+          dispatch({ type: 'GET', payload: res });
         })
         .catch((error) => {
           handleError(error);
         });
     };
     getTodoList();
-  }, []);
+  }, [dispatch]);
 
   return (
     <div>

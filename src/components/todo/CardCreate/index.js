@@ -1,12 +1,14 @@
 import Input from 'components/public/Input';
 import Button from 'components/public/Button';
-import { useRef, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { createTodo } from 'apis/todoApi';
 import { MESSAGE } from 'constants';
 import { handleError } from 'utils/handleError';
-import Validator from 'utils/Validator';
+import validator from 'utils/validator';
+import { dispatchContext } from 'context/TodoProvider';
 
 const CardCreate = () => {
+  const dispatch = useContext(dispatchContext);
   const inputRef = useRef();
 
   const [todo, setTodo] = useState('');
@@ -17,10 +19,11 @@ const CardCreate = () => {
 
   const handleCreate = ({ e }) => {
     e.preventDefault();
-    if (Validator.isValidTodo(todo)) {
-      createTodo(todo)
-        .then(() => {
+    if (validator.isValidTodo(todo)) {
+      createTodo({ todo })
+        .then((res) => {
           inputRef.current.value = '';
+          dispatch({ type: 'CREATE', payload: res });
           alert(MESSAGE.process.create);
         })
         .catch((error) => {

@@ -1,16 +1,15 @@
 import axios from 'axios';
 import { redirect } from 'react-router-dom';
 
-import { USER_TOKEN_KEY } from 'constants';
-import { API_END_POINT } from 'constants';
+import { STORAGE } from 'constants';
 
 export const todoLoader = () => {
-  const userToken = localStorage.getItem(USER_TOKEN_KEY);
+  const userToken = localStorage.getItem(STORAGE.userToken);
   if (!userToken) {
     return redirect('/signin');
   }
   return axios.get('', {
-    baseURL: `${API_END_POINT}/todos`,
+    baseURL: `${process.env.REACT_APP_API_URL}/todos`,
     timeout: 10000,
     headers: {
       Authorization: `Bearer ${userToken}`,

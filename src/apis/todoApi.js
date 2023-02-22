@@ -1,11 +1,11 @@
 import axios from 'axios';
 
-import { API_END_POINT, USER_TOKEN_KEY } from 'constants';
+import { STORAGE } from 'constants';
 
-const token = localStorage.getItem(USER_TOKEN_KEY);
+const token = localStorage.getItem(STORAGE.userToken);
 
 const axiosConfig = {
-  baseURL: `${API_END_POINT}/todos`,
+  baseURL: `${process.env.REACT_APP_API_URL}/todos`,
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',

@@ -14,9 +14,23 @@ const axiosConfig = {
 
 const todoInstance = axios.create(axiosConfig);
 
-export const postTodo = async (todo) => {
+todoInstance.interceptors.request.use(
+  (config) => {
+    const TOKEN = localStorage.getItem('token');
+    if (TOKEN) {
+      config.headers.Authorization = `Bearer ${TOKEN}`;
+    }
+    return config;
+  },
+  (error) => {
+    console.error(error);
+    return Promise.reject(error);
+  },
+);
+
+export const createTodo = async (todo) => {
   try {
-    const res = await todoInstance.post('', { todo: todo });
+    const res = await todoInstance.post('', todo);
     return res.data;
   } catch (err) {
     console.error(err);

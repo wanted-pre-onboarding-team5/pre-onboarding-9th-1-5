@@ -3,6 +3,12 @@ import { createBrowserRouter } from 'react-router-dom';
 
 const routes = [
   {
+    path: '/',
+    element: <SignIn />,
+    errorElement: <Error />,
+    loader: signInLoader,
+  },
+  {
     path: '/signin',
     element: <SignIn />,
     errorElement: <Error />,

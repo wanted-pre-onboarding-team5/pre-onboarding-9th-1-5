@@ -5,14 +5,12 @@ const TodoItem = ({ contents }) => {
 
   return (
     <li>
-      <div>
-        <label>
-          <input type='checkbox' checked={isCompleted} />
-          <Fragment>
-            <input data-testid='modify-input' type='text' value={todo} autoFocus />
-          </Fragment>
-        </label>
-      </div>
+      <label>
+        <input type='checkbox' checked={isCompleted} />
+        <Fragment>
+          <input data-testid='modify-input' type='text' value={todo} autoFocus />
+        </Fragment>
+      </label>
     </li>
   );
 };

@@ -6,3 +6,12 @@ export const userClient = axios.create({
     'Content-Type': 'application/json',
   },
 });
+
+userClient.interceptors.request.use((config) => {
+  const accessToken = localStorage.getItem('access_token');
+
+  if (accessToken && config.headers) {
+    config.headers.Authorization = `Bearer ${accessToken}`;
+  }
+  return config;
+});

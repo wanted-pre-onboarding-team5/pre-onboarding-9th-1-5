@@ -26,19 +26,19 @@ export const SignUp = () => {
       <h1>회원가입</h1>
       <form onSubmit={handleSignUp}>
         <input
-          data-testid="email-input"
+          data-testid='email-input'
           ref={emailRef}
           value={emailInput}
           onChange={handleEmailChange}
         />
         <input
-          data-testid="password-input"
+          data-testid='password-input'
           ref={passwordRef}
           value={passwordInput}
           onChange={handlePasswordChange}
-          type="password"
+          type='password'
         />
-        <button type="submit" data-testid="signup-button" disabled={isButtonDisabled}>
+        <button data-testid='signup-button' disabled={isButtonDisabled}>
           회원가입하기
         </button>
       </form>

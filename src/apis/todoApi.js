@@ -1,47 +1,40 @@
-import React from 'react';
-
 import axios from 'axios';
 
 import { API_END_POINT, USER_TOKEN_KEY } from 'constants';
 
 const axiosConfig = {
-  baseURL: `${API_END_POINT}/auth`,
+  baseURL: `${API_END_POINT}/todos`,
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
   },
 };
 
-const todoInstance = axios.create(axiosConfig);
+export const todoInstance = axios.create(axiosConfig);
 
-todoInstance.interceptors.request.use(
-  (config) => {
-    const TOKEN = localStorage.getItem('token');
-    if (TOKEN) {
-      config.headers.Authorization = `Bearer ${TOKEN}`;
-    }
-    return config;
-  },
-  (error) => {
-    console.error(error);
-    return Promise.reject(error);
-  },
-);
-
-export const createTodo = async (todo) => {
-  try {
-    const res = await todoInstance.post('', todo);
-    return res.data;
-  } catch (err) {
-    console.error(err);
+todoInstance.interceptors.request.use((config) => {
+  const TOKEN = localStorage.getItem(USER_TOKEN_KEY);
+  if (TOKEN) {
+    config.headers.Authorization = `Bearer ${TOKEN}`;
   }
-};
+  return config;
+});
 
 export const getTodos = async () => {
   try {
-    const res = await todoInstance.get('');
-    return res.data;
-  } catch (err) {
-    console.error(err);
+    const { data } = await todoInstance.get('');
+    return data;
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+export const createTodo = async (newTodo) => {
+  todoInstance.headers;
+  try {
+    const { data } = await todoInstance.post('', { todo: newTodo });
+    return data;
+  } catch (e) {
+    console.error(e);
   }
 };

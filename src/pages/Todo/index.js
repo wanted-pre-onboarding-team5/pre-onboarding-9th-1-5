@@ -2,18 +2,19 @@ import { useState, useEffect } from 'react';
 import TodoForm from 'components/TodoForm';
 import { getTodos } from 'apis/todoApi';
 import { useNavigate } from 'react-router-dom';
+import TodoList from 'components/TodoList';
 
 export const Todo = () => {
   const navigate = useNavigate();
   const [todos, setTodos] = useState([]);
 
-  const getTodos = async () => {
-    const getTodos = await getTodos();
-    setTodos(getTodos);
+  const fetchTodos = async () => {
+    const fetchTodos = await getTodos();
+    // setTodos(getTodos2);
   };
 
   useEffect(() => {
-    getTodos();
+    fetchTodos();
     // const token = localStorage.getItem('token');
     // if (token) {
     //   getTodos();
@@ -22,8 +23,6 @@ export const Todo = () => {
 
   return (
     <>
-      <div>Todo</div>
-      <div></div>
       <TodoForm todos={todos} setTodos={setTodos} />
       <TodoList todos={todos} setTodos={setTodos} />
     </>

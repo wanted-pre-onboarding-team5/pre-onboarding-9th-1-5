@@ -8,7 +8,8 @@ const TodoForm = ({ todos, setTodos }) => {
   const handleSubmit = async (e) => {
     if (todo) {
       e.preventDefault();
-      await createTodo({ todo: todo });
+      const newTodo = await createTodo(todo);
+      setTodos([newTodo, ...todos]);
       setTodo('');
     } else {
       alert('할 일을 입력해주세요.');

@@ -16,3 +16,21 @@ todoInstance.interceptors.request.use((config) => {
   }
   return config;
 });
+
+export const createTodo = async (todo) => {
+  try {
+    const response = await todoInstance.post('', todo);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getTodos = async () => {
+  try {
+    const response = await todoInstance.get();
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};

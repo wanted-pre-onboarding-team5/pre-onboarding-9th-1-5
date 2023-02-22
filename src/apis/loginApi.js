@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-import { API_END_POINT, USER_TOKEN_KEY } from 'constants';
+import { USER_TOKEN_KEY } from 'constants';
 
 const axiosConfig = {
-  baseURL: `${API_END_POINT}/auth`,
+  baseURL: `${process.env.REACT_APP_API_URL}/auth`,
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',

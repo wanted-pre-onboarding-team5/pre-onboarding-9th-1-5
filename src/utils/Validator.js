@@ -11,22 +11,55 @@ export default class validator {
   }
 
   static isValidTodo(todo) {
-    return this.isExistTodo(todo) && this.isStringTodo(todo);
+    return this.#isExistTodo(todo) && this.#isStringTodo(todo);
   }
 
-  static isExistTodo(todo) {
-    return this.#validate(this.isSet(todo), MESSAGE.error.emptyTodo);
+  static isValidEmail(email) {
+    return this.#hasAtSignEmail(email);
   }
 
-  static isStringTodo(todo) {
-    return this.#validate(this.isString(todo), MESSAGE.error.notStringTodo);
+  static isValidPassword(password) {
+    return this.#isMinimumLengthPassword(password);
   }
 
-  static isSet(value) {
+  static isChangeTodo(modifyTodo, todo) {
+    return this.#validate(!this.#isSame([modifyTodo, todo]), MESSAGE.error.notChangeTodo);
+  }
+
+  static #isExistTodo(todo) {
+    return this.#validate(this.#isSet(todo), MESSAGE.error.emptyTodo);
+  }
+
+  static #isStringTodo(todo) {
+    return this.#validate(this.#isString(todo), MESSAGE.error.notStringTodo);
+  }
+
+  static #hasAtSignEmail(email) {
+    return this.#validate(this.hasAtSign(email), MESSAGE.error.invalidEmail);
+  }
+
+  static #isMinimumLengthPassword(password) {
+    return this.#validate(this.isMinimumLength(password), MESSAGE.error.invalidPassword);
+  }
+
+  static #isSet(value) {
     return value.trim().length > 0;
   }
 
-  static isString(value) {
+  static #isString(value) {
     return typeof value === 'string';
+  }
+
+  static #isSame(array) {
+    const lastValue = array.pop();
+    return array.every((value) => lastValue === value);
+  }
+
+  static hasAtSign(value) {
+    return value.includes('@');
+  }
+
+  static isMinimumLength(value) {
+    return value.length >= 8;
   }
 }

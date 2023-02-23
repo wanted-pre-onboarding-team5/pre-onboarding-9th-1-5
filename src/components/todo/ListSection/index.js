@@ -12,7 +12,7 @@ const ListSection = () => {
     const getTodoList = () => {
       getTodos()
         .then((res) => {
-          dispatch({ type: 'GET', payload: res });
+          dispatch({ type: 'GET', payload: res.data });
         })
         .catch((error) => {
           handleError(error);

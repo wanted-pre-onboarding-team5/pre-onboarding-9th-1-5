@@ -38,3 +38,20 @@ export const createTodo = async (newTodo) => {
     console.error(e);
   }
 };
+
+export const updateTodo = async (id, updatedTodo) => {
+  try {
+    const { data } = await todoInstance.put(`/${id}`, updatedTodo);
+    return data;
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+export const deleteTodo = async (id) => {
+  try {
+    await todoInstance.delete(`/${id}`);
+  } catch (e) {
+    console.error(e);
+  }
+};

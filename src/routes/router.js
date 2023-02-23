@@ -1,4 +1,5 @@
-import { SignIn, SignUp, Todo, Error, signInLoader, todoLoader } from 'pages';
+import { SignIn, SignUp, Todo, Error } from 'pages';
+import { authLoader, todoLoader } from 'routes/loaders';
 import { createBrowserRouter } from 'react-router-dom';
 
 const routes = [
@@ -6,13 +7,13 @@ const routes = [
     path: '/signin',
     element: <SignIn />,
     errorElement: <Error />,
-    loader: signInLoader,
+    loader: authLoader,
   },
   {
     path: '/signup',
     element: <SignUp />,
     errorElement: <Error />,
-    loader: signInLoader,
+    loader: authLoader,
   },
   {
     path: '/todo',

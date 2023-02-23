@@ -3,20 +3,20 @@ import { deepFreeze } from 'utils/deepFreeze';
 export const API_END_POINT = process.env.REACT_APP_API_URL;
 export const USER_TOKEN_KEY = 'userToken';
 
-export const PATH = {
+export const PATH = Object.freeze({
   home: '/',
   login: '/signin',
   join: '/signup',
   todo: '/todo',
-};
+});
 
-export const API_PATH = {
+export const API_PATH = Object.freeze({
   home: '/',
   login: '/signin',
   join: '/signup',
   todos: '/todos',
   auth: '/auth',
-};
+});
 
 export const MESSAGE = deepFreeze({
   process: {

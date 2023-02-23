@@ -32,5 +32,36 @@ export default function useTodo() {
     }
   };
 
-  return { todoList, postTodo };
+  const updateTodo = async (id, todo, isCompleted) => {
+    try {
+      todoInstance.defaults.headers.Authorization = `Bearer ${localStorage.getItem(
+        USER_TOKEN_KEY,
+      )}`;
+      const { data } = await todoInstance.put(`/todos/${id}`, {
+        todo,
+        isCompleted,
+      });
+      setTodoList(
+        todoList.map((todo) =>
+          todo.id === data?.id ? { ...todo, todo: data.todo, isCompleted: data.isCompleted } : todo,
+        ),
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const deleteTodo = async (id) => {
+    try {
+      todoInstance.defaults.headers.Authorization = `Bearer ${localStorage.getItem(
+        USER_TOKEN_KEY,
+      )}`;
+      await todoInstance.delete(`/todos/${id}`);
+      setTodoList(todoList.filter((todo) => todo.id !== id));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  return { todoList, postTodo, updateTodo, deleteTodo };
 }

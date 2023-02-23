@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { getTodos, createTodo } from 'apis/todoApi';
+import { getTodos, createTodo } from 'apis/todo';
 import { useInput } from './useInput';
 
 export const useTodos = () => {

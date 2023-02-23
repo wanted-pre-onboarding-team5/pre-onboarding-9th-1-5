@@ -1,4 +1,4 @@
-import { postSignUp } from 'apis/loginApi';
+import { postSignUp } from 'apis/auth';
 import { useCheckAccount } from 'hooks/useCheckAccount';
 import { useMovePage } from 'hooks/useMovePage';
 

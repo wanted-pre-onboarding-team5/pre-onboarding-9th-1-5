@@ -1,5 +1,4 @@
 import axios from 'axios';
-
 import { API_END_POINT, USER_TOKEN_KEY } from 'constants';
 
 const axiosConfig = {
@@ -30,7 +29,6 @@ export const getTodos = async () => {
 };
 
 export const createTodo = async (newTodo) => {
-  todoInstance.headers;
   try {
     const { data } = await todoInstance.post('', { todo: newTodo });
     return data;

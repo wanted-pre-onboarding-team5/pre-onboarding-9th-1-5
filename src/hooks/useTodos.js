@@ -1,9 +1,9 @@
 import { useState, useEffect, useCallback } from 'react';
-import { getTodos, createTodo } from 'apis/todoApi';
+import { getTodos, createTodo } from 'apis/todo';
 import { useInput } from './useInput';
 
-export const useTodos = () => {
-  const [todos, setTodos] = useState(null);
+export const useTodos = (initTodos) => {
+  const [todos, setTodos] = useState(initTodos);
   const { value, onChange, onReset } = useInput();
 
   useEffect(() => {

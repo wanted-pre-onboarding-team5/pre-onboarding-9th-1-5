@@ -13,7 +13,7 @@ export default function useTodo() {
         )}`;
         await todoInstance.get('/todos').then(({ data }) => setTodoList([...data]));
       } catch (error) {
-        alert(error);
+        console.error(error);
       }
     };
     response();
@@ -28,7 +28,7 @@ export default function useTodo() {
       const { data } = await todoInstance.post('/todos', { todo });
       setTodoList([...todoList, data]);
     } catch (error) {
-      alert(error);
+      console.error(error);
     }
   };
 

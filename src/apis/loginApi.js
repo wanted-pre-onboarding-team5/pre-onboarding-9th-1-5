@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-import { API_END_POINT, USER_TOKEN_KEY } from 'constants';
+import { STORAGE } from 'constants';
 
 const axiosConfig = {
-  baseURL: `${API_END_POINT}/auth`,
+  baseURL: `${process.env.REACT_APP_API_URL}/auth`,
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
@@ -25,7 +25,7 @@ export const postSignIn = async (userAccount) => {
     const response = await loginInstance.post('/signin', userAccount);
     const { access_token: accessToken } = response.data;
     if (response.status === 200) {
-      localStorage.setItem(USER_TOKEN_KEY, accessToken);
+      localStorage.setItem(STORAGE.userToken, accessToken);
     }
     return { accessToken };
   } catch (err) {

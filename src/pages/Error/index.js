@@ -1,11 +1,11 @@
 import { useNavigate, useRouteError } from 'react-router-dom';
 import { useMovePage } from 'hooks/useMovePage';
-import { USER_TOKEN_KEY } from 'constants';
+import { STORAGE } from 'constants';
 
 export const Error = () => {
   const error = useRouteError();
   const navigate = useNavigate();
-  const userToken = localStorage.getItem(USER_TOKEN_KEY);
+  const userToken = localStorage.getItem(STORAGE.userToken);
   const [goSignIn, goSignUp, goTodo] = useMovePage(['/signin', '/signup', '/todo']);
   console.error(error);
 

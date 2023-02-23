@@ -41,7 +41,16 @@ export const Todo = () => {
       <h3>📄 나의 할 일 목록</h3>
       <ul>
         {todos.map(({ id, todo, isCompleted }) => {
-          return <TodoListItem key={id} id={id} todo={todo} isCompleted={isCompleted} />;
+          return (
+            <TodoListItem
+              key={id}
+              id={id}
+              todo={todo}
+              isCompleted={isCompleted}
+              isUpdated={isUpdated}
+              setIsUpdated={setIsUpdated}
+            />
+          );
         })}
       </ul>
     </>

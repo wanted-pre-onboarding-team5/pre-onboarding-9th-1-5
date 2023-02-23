@@ -1,27 +1,28 @@
+import { PATH } from 'constants';
 import { SignIn, SignUp, Todo, Error, signInLoader, todoLoader, Root, rootLoader } from 'pages';
 import { createBrowserRouter } from 'react-router-dom';
 
 const routes = [
   {
-    path: '/',
+    path: PATH.root,
     element: <Root />,
     errorElement: <Error />,
     loader: rootLoader,
   },
   {
-    path: '/signin',
+    path: PATH.signIn,
     element: <SignIn />,
     errorElement: <Error />,
     loader: signInLoader,
   },
   {
-    path: '/signup',
+    path: PATH.signUp,
     element: <SignUp />,
     errorElement: <Error />,
     loader: signInLoader,
   },
   {
-    path: '/todo',
+    path: PATH.todo,
     element: <Todo />,
     errorElement: <Error />,
     loader: todoLoader,

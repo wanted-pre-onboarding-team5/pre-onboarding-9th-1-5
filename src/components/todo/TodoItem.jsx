@@ -1,15 +1,75 @@
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 
-const TodoItem = ({ contents }) => {
-  const { isCompleted, todo } = contents;
+const TodoItem = ({ contents, updateTodo, deleteTodo }) => {
+  const { id, isCompleted, todo } = contents;
+  const [modifyToggle, setModifyToggle] = useState(false);
+  const [editTodo, setEditTodo] = useState(todo);
+
+  const handleUpdate = async (id, todo, isCompleted) => {
+    if (!editTodo) {
+      alert('할 일을 입력해 주세요');
+      return;
+    }
+    updateTodo(id, todo, isCompleted);
+    setModifyToggle((props) => !props);
+  };
+
+  const handleDelete = async (id) => {
+    deleteTodo(id);
+  };
+
+  const handleDone = async (id, todo, isCompleted) => {
+    updateTodo(id, todo, isCompleted);
+  };
+
+  const handleCancel = () => {
+    setEditTodo(todo);
+    setModifyToggle((props) => !props);
+  };
 
   return (
     <li>
       <label>
-        <input type='checkbox' checked={isCompleted} />
-        <Fragment>
-          <input data-testid='modify-input' type='text' value={todo} autoFocus />
-        </Fragment>
+        <input
+          type='checkbox'
+          checked={isCompleted}
+          onChange={() => handleDone(id, todo, !isCompleted)}
+        />
+        {modifyToggle ? (
+          <Fragment>
+            <input
+              data-testid='modify-input'
+              type='text'
+              value={editTodo}
+              autoFocus
+              onChange={(e) => setEditTodo(e.target.value)}
+            />
+            <button
+              onClick={() => handleUpdate(id, editTodo, isCompleted)}
+              data-testid='submit-button'
+            >
+              제출
+            </button>
+            <button onClick={() => handleCancel()} data-testid='cancel-button'>
+              취소
+            </button>
+          </Fragment>
+        ) : (
+          <Fragment>
+            <span onClick={(e) => e.preventDefault()}>{todo}</span>
+            <button
+              onClick={() => {
+                setModifyToggle((props) => !props);
+              }}
+              data-testid='modify-button'
+            >
+              수정
+            </button>
+            <button onClick={() => handleDelete(id)} data-testid='delete-button'>
+              삭제
+            </button>
+          </Fragment>
+        )}
       </label>
     </li>
   );

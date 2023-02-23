@@ -8,7 +8,6 @@ const TodoList = ({ todos, setTodos, setIsUpdated }) => {
 
   const toggleComplete = async (id, todo, isCompleted) => {
     const toggledComplete = await updateTodo(id, { todo: todo, isCompleted: !isCompleted });
-    console.info(toggledComplete);
     const toggledCompletes = todos.map((todo) => {
       todo.isCompleted = toggledComplete.isCompleted;
       return todo;
@@ -19,7 +18,6 @@ const TodoList = ({ todos, setTodos, setIsUpdated }) => {
 
   const editTodo = async (id, isCompleted) => {
     const updatedTodo = await updateTodo(id, { todo: editingText, isCompleted: isCompleted });
-    console.info(updatedTodo);
     const updatedTodos = todos.map((todo) => {
       todo.todo = updatedTodo.todo;
       return todo;
@@ -32,7 +30,6 @@ const TodoList = ({ todos, setTodos, setIsUpdated }) => {
 
   const handleDeleteTodo = async (id) => {
     const deletedTodo = await deleteTodo(id);
-    console.info(deletedTodo);
     setTodos((todos) => todos.filter((todo) => todo.id !== id));
     setIsUpdated(true);
   };

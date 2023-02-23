@@ -8,7 +8,7 @@ import { MESSAGE } from 'constants';
 import validator from 'utils/validator';
 import { PROPERTY } from 'constants';
 
-const CardModify = ({ todoData, modify, setModify }) => {
+const CardModify = ({ todoData, modifyMode, setModifyMode }) => {
   const dispatch = useContext(dispatchContext);
   const inputRef = useRef();
 
@@ -16,29 +16,31 @@ const CardModify = ({ todoData, modify, setModify }) => {
 
   const handleUpdate = ({ e }) => {
     e.preventDefault();
-    if (validator.isValidTodo(modifyTodo)) {
+    if (validator.isValidTodo(modifyTodo) && validator.isChangeTodo(todoData.todo, modifyTodo)) {
       updateTodo({
         id: todoData.id,
         todo: modifyTodo,
         isCompleted: todoData.isCompleted,
       })
-        .then((res) => {
-          dispatch({ type: 'UPDATE', payload: res.data });
-          setModify(false);
-          alert(MESSAGE.process.updateTodo);
+        .then((response) => {
+          dispatch({ type: 'UPDATE', payload: response.data });
+          setModifyMode(false);
+          return alert(MESSAGE.process.updateTodo);
         })
         .catch((error) => {
-          setModify(false);
+          setModifyMode(false);
           inputRef.current.value = todoData.todo;
-          handleError(error);
+          return handleError(error);
         });
     }
+    inputRef.current.value = todoData.todo;
+    setModifyMode(false);
   };
 
   const handleCancel = ({ e }) => {
     e.preventDefault();
     inputRef.current.value = todoData.todo;
-    setModify(false);
+    setModifyMode(false);
   };
 
   const onChangeModify = () => {
@@ -46,30 +48,26 @@ const CardModify = ({ todoData, modify, setModify }) => {
   };
 
   return (
-    <form style={ { display: modify ? PROPERTY.display.show : PROPERTY.display.hide } }>
+    <form style={{ display: modifyMode ? PROPERTY.display.show : PROPERTY.display.hide }}>
       <Input
-        InputData={ {
-          type: PROPERTY.input.editTodo.type,
-          testId: PROPERTY.input.editTodo.testId,
-          placeholder: PROPERTY.input.editTodo.placeholder,
+        props={{
+          ...PROPERTY.input.editTodo,
           onChange: onChangeModify,
           defaultValue: modifyTodo,
           inputRef: inputRef,
-        } }
+        }}
       />
       <Button
-        ButtonData={ {
-          text: PROPERTY.button.editConfirm.text,
-          testId: PROPERTY.button.editConfirm.testId,
+        props={{
+          ...PROPERTY.button.editConfirm,
           handleClick: handleUpdate,
-        } }
+        }}
       />
       <Button
-        ButtonData={ {
-          text: PROPERTY.button.editCancel.text,
-          testId: PROPERTY.button.editCancel.testId,
+        props={{
+          ...PROPERTY.button.editCancel,
           handleClick: handleCancel,
-        } }
+        }}
       />
     </form>
   );

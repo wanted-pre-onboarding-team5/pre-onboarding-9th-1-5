@@ -1,16 +1,17 @@
 import { deleteTodo, updateTodo } from 'apis/todoApi';
 import Button from 'components/public/Button';
+import Input from 'components/public/Input';
 import { MESSAGE } from 'constants';
 import { PROPERTY } from 'constants';
 import { dispatchContext } from 'context/TodoProvider';
 import { useContext } from 'react';
 import { handleError } from 'utils/handleError';
 
-const CardDisplay = ({ todoData, modify, setModify }) => {
+const CardDisplay = ({ todoData, modifyMode, setModifyMode }) => {
   const dispatch = useContext(dispatchContext);
 
-  const handleModify = () => {
-    setModify(true);
+  const handleModifyMode = () => {
+    setModifyMode(true);
   };
 
   const handleIsCompleted = (e) => {
@@ -19,8 +20,8 @@ const CardDisplay = ({ todoData, modify, setModify }) => {
       todo: todoData.todo,
       isCompleted: e.target.checked,
     })
-      .then((res) => {
-        dispatch({ type: 'UPDATE', payload: res.data });
+      .then((response) => {
+        dispatch({ type: 'UPDATE', payload: response.data });
       })
       .catch((error) => {
         e.target.checked = todoData.isCompleted;
@@ -29,43 +30,45 @@ const CardDisplay = ({ todoData, modify, setModify }) => {
   };
 
   const handleDelete = () => {
-    deleteTodo({ id: todoData.id })
-      .then(() => {
-        dispatch({ type: 'DELETE', payload: { id: todoData.id } });
-        alert(MESSAGE.process.deleteTodo);
-      })
-      .catch((error) => {
-        handleError(error);
-      });
+    if (confirm(MESSAGE.process.askDelete)) {
+      deleteTodo({ id: todoData.id })
+        .then(() => {
+          dispatch({ type: 'DELETE', payload: { id: todoData.id } });
+          alert(MESSAGE.process.deleteTodo);
+        })
+        .catch((error) => {
+          handleError(error);
+        });
+    }
   };
 
   return (
-    <label style={{ display: modify ? PROPERTY.display.hide : PROPERTY.display.show }}>
-      <input
-        type={PROPERTY.checkbox.isCompleted.type}
-        defaultChecked={todoData.isCompleted}
-        onChange={(e) => handleIsCompleted(e)}
+    <label style={{ display: modifyMode ? PROPERTY.display.hide : PROPERTY.display.show }}>
+      <Input
+        props={{
+          ...PROPERTY.checkbox.isCompleted,
+          defaultChecked: todoData.isCompleted,
+          onChange: (e) => handleIsCompleted(e),
+        }}
       />
       <span
         style={{
           textDecorationLine: todoData.isCompleted
-            ? PROPERTY.display.isCompleted
-            : PROPERTY.display.notCompleted,
+            ? PROPERTY.display.isCompleted.true
+            : PROPERTY.display.isCompleted.false,
         }}
       >
         {todoData.todo}
       </span>
       <Button
-        ButtonData={{
-          text: PROPERTY.button.editMode.text,
-          testId: PROPERTY.button.editMode.testId,
-          handleClick: handleModify,
+        props={{
+          ...PROPERTY.button.editMode,
+          handleClick: handleModifyMode,
         }}
       />
       <Button
-        ButtonData={{
-          text: PROPERTY.button.deleteTodo.text,
-          testId: PROPERTY.button.deleteTodo.testId,
+        props={{
+          ...PROPERTY.button.deleteTodo,
           handleClick: handleDelete,
         }}
       />

@@ -1,5 +1,5 @@
-const Input = ({ InputData }) => {
-  const { type, placeholder, testId, onChange, autoComplete, defaultValue, inputRef } = InputData;
+const Input = ({ props }) => {
+  const { type, placeholder, testId, onChange, autoComplete, defaultValue, inputRef } = props;
   return (
     <input
       data-testid={testId}

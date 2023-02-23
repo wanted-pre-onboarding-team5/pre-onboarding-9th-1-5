@@ -1,35 +1,20 @@
 import axios from 'axios';
+import { API_END_POINT, USER_TOKEN_KEY, API_PATH } from 'constants';
 
-import { API_END_POINT, USER_TOKEN_KEY } from 'constants';
-
-const axiosConfig = {
-  baseURL: `${API_END_POINT}/auth`,
+const loginInstance = axios.create({
+  baseURL: `${API_END_POINT + API_PATH.auth}`,
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
   },
+});
+
+export const postSignUp = (userData) => {
+  return loginInstance.post(API_PATH.join, userData);
 };
 
-const loginInstance = axios.create(axiosConfig);
-
-export const postSignUp = async (userAccount) => {
-  try {
-    await loginInstance.post('/signup', userAccount);
-  } catch (err) {
-    console.error(err);
-  }
-};
-
-export const postSignIn = async (userAccount) => {
-  try {
-    const response = await loginInstance.post('/signin', userAccount);
-    const accessToken = response.data.access_token;
-    if (response.status === 200) {
-      localStorage.setItem(USER_TOKEN_KEY, accessToken);
-    }
-  } catch (err) {
-    console.error(err);
-  }
+export const postSignIn = (userData) => {
+  return loginInstance.post(API_PATH.login, userData);
 };
 
 export const postSignOut = () => {

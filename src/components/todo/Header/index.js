@@ -1,4 +1,6 @@
 import { postSignOut } from 'apis/loginApi';
+import Button from 'components/public/Button';
+import { PATH } from 'constants';
 import { PROPERTY } from 'constants';
 import { MESSAGE } from 'constants';
 import { useNavigate } from 'react-router-dom';
@@ -7,14 +9,14 @@ const Header = () => {
   const navigator = useNavigate();
   const onLogout = () => {
     postSignOut();
-    navigator('/');
+    navigator(PATH.home);
     alert(MESSAGE.process.signOut);
   };
 
   return (
     <div>
-      <h1>To Do List</h1>
-      <button onClick={onLogout}>{PROPERTY.button.signOutConfirm.text}</button>
+      <h1>{PROPERTY.title.todo}</h1>
+      <Button props={{ ...PROPERTY.button.signOutConfirm, handleClick: onLogout }} />
     </div>
   );
 };

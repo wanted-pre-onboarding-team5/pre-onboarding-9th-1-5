@@ -14,32 +14,7 @@ const TodoForm = ({ todos, setTodos }) => {
     } else {
       alert('할 일을 입력해주세요.');
     }
-
-    // const { accessToken } = await postSignIn({ email: emailInput, password: passwordInput });
-    // if (!accessToken) return;
-    // localStorage.setItem(USER_TOKEN_KEY, accessToken);
-    // goTodo();
   };
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-
-  //   if (todo) {
-  //     instance
-  //       .post('/todos', {
-  //         todo: todo,
-  //       })
-  //       .then((res) => {
-  //         setTodos(todos.concat(res.data));
-  //         setTodo('');
-  //       })
-  //       .catch((err) => {
-  //         return alert(err);
-  //       });
-  //   } else {
-  //     alert('할 일을 입력해주세요.');
-  //   }
-  // };
 
   return (
     <div>

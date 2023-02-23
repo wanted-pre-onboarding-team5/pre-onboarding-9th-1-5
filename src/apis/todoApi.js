@@ -30,9 +30,26 @@ export const getTodos = async () => {
 };
 
 export const createTodo = async (newTodo) => {
-  todoInstance.headers;
   try {
     const { data } = await todoInstance.post('', { todo: newTodo });
+    return data;
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+export const deleteTodo = async (id) => {
+  try {
+    const { data } = await todoInstance.delete(`/${id}`);
+    return data;
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+export const updateTodo = async (id, updatedTodo) => {
+  try {
+    const { data } = await todoInstance.put(`/${id}`, updatedTodo);
     return data;
   } catch (e) {
     console.error(e);

@@ -1,4 +1,4 @@
-import { TodoListItem } from 'components/TodoListItem';
+import { TodoItem } from 'components/TodoItem';
 import { useTodo } from 'pages/Todo/hook';
 export const Todo = () => {
   const {
@@ -26,7 +26,7 @@ export const Todo = () => {
       <ul>
         {todos.map(({ id, todo, isCompleted }) => {
           return (
-            <TodoListItem
+            <TodoItem
               key={id}
               id={id}
               todo={todo}

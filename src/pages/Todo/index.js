@@ -11,7 +11,7 @@ export const Todo = () => {
       <div>Todo</div>
       <TodoForm todoList={todoList} setTodoList={setTodoList} />
       {todoList.map((todo) => (
-        <TodoItem key={todo.id} todo={todo} />
+        <TodoItem key={todo.id} todo={todo} todoList={todoList} setTodoList={setTodoList} />
       ))}
     </>
   );

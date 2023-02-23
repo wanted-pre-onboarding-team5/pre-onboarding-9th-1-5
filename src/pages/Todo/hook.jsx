@@ -1,7 +1,7 @@
 import { useLoaderData } from 'react-router-dom';
 import { useInput } from 'hooks/useInput';
 import { createTodo, getTodos, updateTodo, deleteTodo } from 'apis/todoApi';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 
 export const useTodo = () => {
   const { data: loadedTodoData } = useLoaderData();
@@ -19,23 +19,26 @@ export const useTodo = () => {
     refetchTodos();
   }, [isUpdated]);
 
-  const handleCreateTodo = async (e) => {
-    e.preventDefault();
-    if (!todoValue) return;
-    await createTodo({ todo: todoValue });
-    setIsUpdated(true);
-    resetTodo();
-  };
+  const handleCreateTodo = useCallback(
+    async (e) => {
+      e.preventDefault();
+      if (!todoValue) return;
+      await createTodo({ todo: todoValue });
+      setIsUpdated(true);
+      resetTodo();
+    },
+    [todoValue],
+  );
 
-  const handleCheckBoxChange = async (id, todo, isCompleted) => {
+  const handleCheckBoxChange = useCallback(async (id, todo, isCompleted) => {
     await updateTodo(id, { todo, isCompleted: !isCompleted });
     setIsUpdated(true);
-  };
+  }, []);
 
-  const handleDeleteClick = async (id) => {
+  const handleDeleteClick = useCallback(async (id) => {
     await deleteTodo(id);
     setIsUpdated(true);
-  };
+  }, []);
 
   return {
     todos,

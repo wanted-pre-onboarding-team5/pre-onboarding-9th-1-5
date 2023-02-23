@@ -1,5 +1,6 @@
-import { TodoItem } from 'components/TodoItem';
+import { TodoList } from 'components/TodoList';
 import { useTodo } from 'pages/Todo/hook';
+
 export const Todo = () => {
   const {
     todos,
@@ -23,22 +24,13 @@ export const Todo = () => {
         </button>
       </form>
       <h3>📄 나의 할 일 목록</h3>
-      <ul>
-        {todos.map(({ id, todo, isCompleted }) => {
-          return (
-            <TodoItem
-              key={id}
-              id={id}
-              todo={todo}
-              isCompleted={isCompleted}
-              isUpdated={isUpdated}
-              setIsUpdated={setIsUpdated}
-              onCheckBoxChange={() => handleCheckBoxChange(id, todo, isCompleted)}
-              onDelete={() => handleDeleteClick(id)}
-            />
-          );
-        })}
-      </ul>
+      <TodoList
+        todos={todos}
+        isUpdated={isUpdated}
+        setIsUpdated={setIsUpdated}
+        onCheckBoxChange={handleCheckBoxChange}
+        onDeleteClick={handleDeleteClick}
+      />
     </>
   );
 };

@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
-import TodoList from '../../components/todo/TodoList';
-import TodoForm from '../../components/todo/TodoForm';
-import useTodo from '../../hooks/useTodo';
+import TodoList from 'components/todo/TodoList';
+import TodoForm from 'components/todo/TodoForm';
+import useTodo from 'hooks/useTodo';
 import { USER_TOKEN_KEY } from 'constants';
 
 export const Todo = () => {

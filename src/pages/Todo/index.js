@@ -5,19 +5,21 @@ import TodoList from 'components/TodoList';
 
 export const Todo = () => {
   const [todos, setTodos] = useState([]);
+  const [isUpdated, setIsUpdated] = useState(false);
 
   const fetchTodos = async () => {
     const fetchTodos = await getTodos();
+    setIsUpdated(false);
   };
 
   useEffect(() => {
     fetchTodos();
-  }, []);
+  }, [isUpdated]);
 
   return (
     <>
-      <TodoForm todos={todos} setTodos={setTodos} />
-      <TodoList todos={todos} setTodos={setTodos} />
+      <TodoForm todos={todos} setTodos={setTodos} setIsUpdated={setIsUpdated} />
+      <TodoList todos={todos} setTodos={setTodos} setIsUpdated={setIsUpdated} />
     </>
   );
 };

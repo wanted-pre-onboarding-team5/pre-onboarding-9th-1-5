@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { createTodo } from 'apis/todoApi';
 
-const TodoForm = ({ todos, setTodos }) => {
+const TodoForm = ({ todos, setTodos, setIsUpdated }) => {
   const [todo, setTodo] = useState('');
 
   const handleSubmit = async (e) => {
@@ -10,6 +10,7 @@ const TodoForm = ({ todos, setTodos }) => {
       e.preventDefault();
       const newTodo = await createTodo(todo);
       setTodos([newTodo, ...todos]);
+      setIsUpdated(true);
       setTodo('');
     } else {
       alert('할 일을 입력해주세요.');

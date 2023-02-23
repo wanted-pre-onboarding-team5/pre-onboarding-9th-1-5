@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { deleteTodo, updateTodo } from 'apis/todoApi';
 
-const TodoList = ({ todos, setTodos }) => {
+const TodoList = ({ todos, setTodos, setIsUpdated }) => {
   const [todoEditing, setTodoEditing] = useState(null);
   const [editingText, setEditingText] = useState('');
 
@@ -10,10 +10,11 @@ const TodoList = ({ todos, setTodos }) => {
     const toggledComplete = await updateTodo(id, { todo: todo, isCompleted: !isCompleted });
     console.info(toggledComplete);
     const toggledCompletes = todos.map((todo) => {
-      todo.todo = toggledComplete.isCompleted;
+      todo.isCompleted = toggledComplete.isCompleted;
       return todo;
     });
     setTodos(toggledCompletes);
+    setIsUpdated(true);
   };
 
   const editTodo = async (id, isCompleted) => {
@@ -25,6 +26,7 @@ const TodoList = ({ todos, setTodos }) => {
     });
     setTodos(updatedTodos);
     setTodoEditing(null);
+    setIsUpdated(true);
     setEditingText('');
   };
 
@@ -32,6 +34,7 @@ const TodoList = ({ todos, setTodos }) => {
     const deletedTodo = await deleteTodo(id);
     console.info(deletedTodo);
     setTodos((todos) => todos.filter((todo) => todo.id !== id));
+    setIsUpdated(true);
   };
 
   return todos.map((todo) => (

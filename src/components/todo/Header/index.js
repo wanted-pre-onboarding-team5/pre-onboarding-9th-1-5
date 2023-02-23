@@ -14,7 +14,7 @@ const Header = () => {
   return (
     <div>
       <h1>To Do List</h1>
-      <button onClick={ onLogout }>{ PROPERTY.signOutButton.text }</button>
+      <button onClick={onLogout}>{PROPERTY.button.signOutConfirm.text}</button>
     </div>
   );
 };

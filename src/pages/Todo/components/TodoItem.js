@@ -12,16 +12,19 @@ const TodoItem = ({ todo, todoList, setTodoList }) => {
   } = useInput(todo.todo);
 
   const toggleCheckBox = async () => {
-    const data = await updateTodo({
+    const newTodoData = await updateTodo({
       ...todoData,
       isCompleted: !todoData.isCompleted,
     });
-    setTodoData(data);
+    setTodoData(newTodoData);
   };
 
   const submitEditText = async () => {
-    const data = await updateTodo({ ...todoData, todo: newTodoText });
-    setTodoData(data);
+    if (todoData.todo !== newTodoText) {
+      const newTodoData = await updateTodo({ ...todoData, todo: newTodoText });
+      setTodoData(newTodoData);
+    }
+
     setIsEditMode(false);
   };
 
@@ -33,9 +36,8 @@ const TodoItem = ({ todo, todoList, setTodoList }) => {
   const handleDeleteTodo = async () => {
     if (window.confirm('삭제하시겠습니까?')) {
       await deleteTodo(todoData.id);
+      setTodoList(todoList.filter((todo) => todo.id !== todoData.id));
     }
-
-    setTodoList(todoList.filter((todo) => todo.id !== todoData.id));
   };
 
   return (
@@ -63,7 +65,11 @@ const TodoItem = ({ todo, todoList, setTodoList }) => {
           <button data-testid='cancel-button' onClick={cancelEditText}>
             취소
           </button>
-          <button data-testid='submit-button' onClick={submitEditText}>
+          <button
+            data-testid='submit-button'
+            onClick={submitEditText}
+            disabled={newTodoText === ''}
+          >
             완료
           </button>
         </div>

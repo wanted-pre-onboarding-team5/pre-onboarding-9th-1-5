@@ -1,8 +1,9 @@
 import axios from 'axios';
-import { API_END_POINT, USER_TOKEN_KEY } from 'constants';
+import { API_END_POINT, USER_TOKEN_KEY, API_PATH } from 'constants';
 
 const todoInstance = axios.create({
-  baseURL: `${API_END_POINT}/todos`,
+  baseURL: `${API_END_POINT + API_PATH.todos}`,
+  timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -17,38 +18,18 @@ todoInstance.interceptors.request.use((config) => {
   return config;
 });
 
-export const createTodo = async (todo) => {
-  try {
-    const response = await todoInstance.post('', todo);
-    return response;
-  } catch (error) {
-    console.error(error);
-  }
+export const createTodo = (todo) => {
+  return todoInstance.post('', todo);
 };
 
-export const getTodos = async () => {
-  try {
-    const response = await todoInstance.get();
-    return response;
-  } catch (error) {
-    console.error(error);
-  }
+export const getTodos = () => {
+  return todoInstance.get('');
 };
 
 export const updateTodo = async ({ id, todo, isCompleted }) => {
-  try {
-    const response = await todoInstance.put(`/${id}`, { todo, isCompleted });
-    return response;
-  } catch (error) {
-    console.error(error);
-  }
+  return todoInstance.put(`/${id}`, { todo, isCompleted });
 };
 
 export const deleteTodo = async ({ id }) => {
-  try {
-    const response = await todoInstance.delete(`/${id}`);
-    return response;
-  } catch (error) {
-    console.error(error);
-  }
+  return todoInstance.delete(`/${id}`);
 };

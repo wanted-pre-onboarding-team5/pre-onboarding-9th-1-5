@@ -8,15 +8,15 @@ export const PATH = {
   login: '/signin',
   join: '/signup',
   todo: '/todo',
-}
+};
 
 export const API_PATH = {
   home: '/',
   login: '/signin',
   join: '/signup',
   todos: '/todos',
-  auth: '/auth'
-}
+  auth: '/auth',
+};
 
 export const MESSAGE = deepFreeze({
   process: {
@@ -41,7 +41,7 @@ export const MESSAGE = deepFreeze({
 
 export const PROPERTY = deepFreeze({
   title: {
-    signIn: 'TODAY\'S TO DO',
+    signIn: "TODAY'S TO DO",
     signUp: '회원가입',
     todo: 'To Do List',
   },
@@ -132,7 +132,7 @@ export const PROPERTY = deepFreeze({
     goBack: {
       text: '이전 페이지로 가기',
       active: true,
-    }
+    },
   },
   checkbox: {
     isCompleted: {
@@ -155,6 +155,6 @@ export const PROPERTY = deepFreeze({
     isCompleted: {
       true: 'line-through',
       false: 'none',
-    }
+    },
   },
 });

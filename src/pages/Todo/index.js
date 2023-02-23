@@ -3,8 +3,8 @@ import { useLoaderData } from 'react-router-dom';
 import { TodoForm, TodoItem } from './components';
 
 export const Todo = () => {
-  const { data } = useLoaderData();
-  const [todoList, setTodoList] = React.useState(data);
+  const { data: loaderData } = useLoaderData();
+  const [todoList, setTodoList] = React.useState([...loaderData].reverse());
 
   return (
     <>

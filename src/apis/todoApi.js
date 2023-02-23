@@ -2,18 +2,22 @@ import axios from 'axios';
 
 import { STORAGE } from 'constants';
 
-const token = localStorage.getItem(STORAGE.userToken);
-
 const axiosConfig = {
   baseURL: `${process.env.REACT_APP_API_URL}/todos`,
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
-    Authorization: token ? `Bearer ${token}` : null,
   },
 };
 
 const todoInstance = axios.create(axiosConfig);
+todoInstance.interceptors.request.use(setTokenConfig);
+
+function setTokenConfig(config) {
+  const token = localStorage.getItem(STORAGE.authToken);
+  config.headers.Authorization = token ? `Bearer ${token}` : null;
+  return config;
+}
 
 export const getTodos = async () => {
   try {

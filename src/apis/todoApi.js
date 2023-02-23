@@ -35,3 +35,23 @@ export const getTodos = async () => {
     console.error(err);
   }
 };
+
+export const deleteTodo = async (todoId) => {
+  try {
+    await todoInstance.delete(`/${todoId}`);
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const modifyTodo = async (todoId, todoContent, isCompleted) => {
+  try {
+    const res = await todoInstance.put(`/${todoId}`, {
+      todo: todoContent,
+      isCompleted: isCompleted,
+    });
+    return res.data;
+  } catch (err) {
+    console.error(err);
+  }
+};

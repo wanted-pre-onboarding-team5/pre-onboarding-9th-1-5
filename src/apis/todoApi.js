@@ -36,3 +36,20 @@ export const createTodo = async (todo) => {
     console.error(err);
   }
 };
+
+export const updateTodo = async (todo) => {
+  try {
+    const response = await todoInstance.put(`/${todo.id}`, { todo });
+    return response.data;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const deleteTodo = async (id) => {
+  try {
+    await todoInstance.delete(`/${id}`);
+  } catch (err) {
+    console.error(err);
+  }
+};

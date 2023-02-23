@@ -1,23 +1,15 @@
 import { postSignUp } from 'apis/loginApi';
-import { useCheckAccount } from 'hooks/useCheckAccount';
+import { useAuthForm } from 'hooks/useAuthForm';
 import { useMovePage } from 'hooks/useMovePage';
 
 export const SignUp = () => {
-  const {
-    isButtonDisabled,
-    emailRef,
-    passwordRef,
-    emailInput,
-    passwordInput,
-    handleEmailChange,
-    handlePasswordChange,
-  } = useCheckAccount();
+  const { isValidInput, userInput, handleInputChange } = useAuthForm();
 
   const [goSignIn] = useMovePage('/signin');
 
   const handleSignUp = async (e) => {
     e.preventDefault();
-    await postSignUp({ email: emailInput, password: passwordInput });
+    await postSignUp(userInput);
     goSignIn();
   };
 
@@ -27,18 +19,18 @@ export const SignUp = () => {
       <form onSubmit={handleSignUp}>
         <input
           data-testid='email-input'
-          ref={emailRef}
-          value={emailInput}
-          onChange={handleEmailChange}
+          value={userInput.email}
+          onChange={handleInputChange}
+          name='email'
         />
         <input
           data-testid='password-input'
-          ref={passwordRef}
-          value={passwordInput}
-          onChange={handlePasswordChange}
+          value={userInput.password}
+          onChange={handleInputChange}
           type='password'
+          name='password'
         />
-        <button type='submit' data-testid='signup-button' disabled={isButtonDisabled}>
+        <button type='submit' data-testid='signup-button' disabled={!isValidInput()}>
           회원가입하기
         </button>
       </form>

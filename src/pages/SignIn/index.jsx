@@ -1,7 +1,6 @@
 import { useCheckAccount } from 'hooks/useCheckAccount';
 import { useMovePage } from 'hooks/useMovePage';
 import { postSignIn } from 'apis/loginApi';
-import { USER_TOKEN_KEY } from 'constants';
 
 export const SignIn = () => {
   const {
@@ -20,7 +19,6 @@ export const SignIn = () => {
     e.preventDefault();
     const { accessToken } = await postSignIn({ email: emailInput, password: passwordInput });
     if (!accessToken) return;
-    localStorage.setItem(USER_TOKEN_KEY, accessToken);
     goTodo();
   };
 

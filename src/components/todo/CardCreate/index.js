@@ -24,8 +24,8 @@ const CardCreate = () => {
       createTodo({ todo })
         .then((res) => {
           inputRef.current.value = '';
-          dispatch({ type: 'CREATE', payload: res });
-          alert(MESSAGE.process.create);
+          dispatch({ type: 'CREATE', payload: res.data });
+          alert(MESSAGE.process.createTodo);
         })
         .catch((error) => {
           handleError(error);
@@ -36,21 +36,21 @@ const CardCreate = () => {
   return (
     <div>
       <Input
-        InputData={ {
-          testId: PROPERTY.newTodoInput.testId,
-          type: PROPERTY.newTodoInput.type,
-          placeholder: PROPERTY.newTodoInput.placeholder,
+        InputData={{
+          testId: PROPERTY.input.addTodo.testId,
+          type: PROPERTY.input.addTodo.type,
+          placeholder: PROPERTY.input.addTodo.placeholder,
           defaultValue: todo,
           onChange: onChangeTodo,
           inputRef: inputRef,
-        } }
+        }}
       />
       <Button
-        ButtonData={ {
-          text: PROPERTY.newTodoAddButton.text,
-          testId: PROPERTY.newTodoAddButton.testId,
+        ButtonData={{
+          text: PROPERTY.button.addTodo.text,
+          testId: PROPERTY.button.addTodo.testId,
           handleClick: handleCreate,
-        } }
+        }}
       />
     </div>
   );

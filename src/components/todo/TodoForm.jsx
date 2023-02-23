@@ -11,8 +11,8 @@ const TodoForm = ({ postTodo }) => {
 
   const onChangeHandler = (e) => {
     e.preventDefault();
-    const { name, value } = e.target;
-    setTodoData({ ...todoData, [name]: value });
+    const { name: todoName, value: todoValue } = e.target;
+    setTodoData({ ...todoData, [todoName]: todoValue });
   };
 
   const onSubmitHandler = (e) => {

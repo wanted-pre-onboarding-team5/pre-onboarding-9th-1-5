@@ -22,9 +22,9 @@ const CardCreate = () => {
     e.preventDefault();
     if (validator.isValidTodo(todo)) {
       createTodo({ todo })
-        .then((res) => {
+        .then((response) => {
           inputRef.current.value = '';
-          dispatch({ type: 'CREATE', payload: res.data });
+          dispatch({ type: 'CREATE', payload: response.data });
           alert(MESSAGE.process.createTodo);
         })
         .catch((error) => {
@@ -34,25 +34,22 @@ const CardCreate = () => {
   };
 
   return (
-    <div>
+    <form>
       <Input
-        InputData={{
-          testId: PROPERTY.input.addTodo.testId,
-          type: PROPERTY.input.addTodo.type,
-          placeholder: PROPERTY.input.addTodo.placeholder,
+        props={{
+          ...PROPERTY.input.addTodo,
           defaultValue: todo,
           onChange: onChangeTodo,
           inputRef: inputRef,
         }}
       />
       <Button
-        ButtonData={{
-          text: PROPERTY.button.addTodo.text,
-          testId: PROPERTY.button.addTodo.testId,
+        props={{
+          ...PROPERTY.button.addTodo,
           handleClick: handleCreate,
         }}
       />
-    </div>
+    </form>
   );
 };
 

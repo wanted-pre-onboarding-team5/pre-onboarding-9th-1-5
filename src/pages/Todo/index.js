@@ -28,13 +28,7 @@ export const Todo = () => {
       {todos.map((todo) => {
         return (
           <div key={todo.id}>
-            <TodoItem
-              todo={todo}
-              setTodos={setTodos}
-              todos={todos}
-              isUpdated={isUpdated}
-              setIsUpdated={setIsUpdated}
-            />
+            <TodoItem todo={todo} setTodos={setTodos} todos={todos} />
           </div>
         );
       })}

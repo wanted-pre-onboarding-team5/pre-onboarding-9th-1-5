@@ -48,7 +48,7 @@ export const modifyTodo = async (todoId, todoContent, isCompleted) => {
   try {
     const res = await todoInstance.put(`/${todoId}`, {
       todo: todoContent,
-      isCompleted: isCompleted,
+      isCompleted,
     });
     return res.data;
   } catch (err) {

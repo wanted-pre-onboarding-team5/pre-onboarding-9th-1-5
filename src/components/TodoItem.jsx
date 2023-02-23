@@ -1,10 +1,10 @@
 import { deleteTodo, modifyTodo } from 'apis/todoApi';
-import React from 'react';
+import React, { useState } from 'react';
 
 const TodoItem = ({ todo, setTodos, todos }) => {
-  const [modify, setModify] = React.useState(false);
-  const [todoContent, setTodoContent] = React.useState(todo.todo);
-  const [checked, setChecked] = React.useState(!todo.isCompleted);
+  const [isModify, setIsModify] = useState(false);
+  const [todoContent, setTodoContent] = useState(todo.todo);
+  const [checked] = useState(!todo.isCompleted);
 
   const deleteHandler = (todoId) => {
     deleteTodo(todoId);
@@ -15,12 +15,12 @@ const TodoItem = ({ todo, setTodos, todos }) => {
     modifyTodo(todoId, content, isCompleted);
 
     setTodos(todos.map((todo) => (todo.id === todoId ? { ...todo, todo: content } : todo)));
-    setModify(!modify);
+    setIsModify(!isModify);
   };
 
   const cancelHandler = () => {
     setTodoContent(todo.todo);
-    setModify(!modify);
+    setIsModify(!isModify);
   };
 
   const checkboxHandler = (todoId, todoContent, isCompleted) => {
@@ -36,27 +36,16 @@ const TodoItem = ({ todo, setTodos, todos }) => {
 
   return (
     <div style={{ display: 'flex' }}>
-      {todo.isCompleted ? (
-        <input
-          type='checkbox'
-          value={undefined || ''}
-          onChange={() => {
-            setChecked(!checked);
-            checkboxHandler(todo.id, todoContent, checked);
-          }}
-          checked
-        />
-      ) : (
-        <input
-          type='checkbox'
-          value={undefined || ''}
-          onChange={() => {
-            setChecked(!checked);
-            checkboxHandler(todo.id, todoContent, checked);
-          }}
-        />
-      )}
-      {modify ? (
+      <input
+        type='checkbox'
+        value={undefined || ''}
+        defaultChecked={todo.isCompleted}
+        onChange={() => {
+          checkboxHandler(todo.id, todoContent, checked);
+        }}
+      />
+
+      {isModify ? (
         <>
           <input
             value={todoContent}
@@ -79,7 +68,7 @@ const TodoItem = ({ todo, setTodos, todos }) => {
       ) : (
         <>
           <div>{todo.todo}</div>
-          <button data-testid='modify-button' onClick={() => setModify(!modify)}>
+          <button data-testid='modify-button' onClick={() => setIsModify(!isModify)}>
             수정
           </button>
           <button data-testid='delete-button' onClick={() => deleteHandler(todo.id)}>

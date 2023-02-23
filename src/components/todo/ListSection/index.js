@@ -11,8 +11,8 @@ const ListSection = () => {
   useEffect(() => {
     const getTodoList = () => {
       getTodos()
-        .then((res) => {
-          dispatch({ type: 'GET', payload: res.data });
+        .then((response) => {
+          dispatch({ type: 'GET', payload: response.data });
         })
         .catch((error) => {
           handleError(error);

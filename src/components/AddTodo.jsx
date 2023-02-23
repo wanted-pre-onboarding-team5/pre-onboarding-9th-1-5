@@ -2,13 +2,13 @@ import React from 'react';
 import { useInput } from 'hooks/useInput';
 import { postTodo } from 'apis/todoApi';
 
-const AddTodoItem = ({ todos, setTodos }) => {
+const AddTodoItem = ({ setIsUpdated }) => {
   const { value, onChange, onReset } = useInput();
 
   const onClickHandler = async (e) => {
     e.preventDefault();
-    const newTodo = await postTodo(value);
-    setTodos([...todos, newTodo]);
+    await postTodo(value);
+    setIsUpdated(true);
     onReset();
   };
   return (

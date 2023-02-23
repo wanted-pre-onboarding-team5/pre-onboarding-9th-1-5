@@ -1,7 +1,6 @@
 import { useAuthForm } from 'hooks/useAuthForm';
 import { useMovePage } from 'hooks/useMovePage';
-import { postSignIn } from 'apis/loginApi';
-import { STORAGE } from 'constants';
+import { postSignIn } from 'apis/authApi';
 
 export const SignIn = () => {
   const { isValidInput, userInput, handleInputChange } = useAuthForm();
@@ -10,9 +9,7 @@ export const SignIn = () => {
 
   const handleSignIn = async (e) => {
     e.preventDefault();
-    const { accessToken } = await postSignIn(userInput);
-    if (!accessToken) return;
-    localStorage.setItem(STORAGE.userToken, accessToken);
+    await postSignIn(userInput);
     goTodo();
   };
 

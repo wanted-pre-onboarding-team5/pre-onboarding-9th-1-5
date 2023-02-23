@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { useTodo } from '../hooks/useTodo';
 
 export const TodoItem = ({ todo, setTodos }) => {
@@ -16,12 +17,7 @@ export const TodoItem = ({ todo, setTodos }) => {
       {!isEditMode ? (
         <>
           <label>
-            <input
-              type='checkbox'
-              className='sr-only'
-              checked={todo.isCompleted}
-              onChange={handleChecked}
-            />
+            <input type='checkbox' checked={todo.isCompleted} onChange={handleChecked} />
             <span>{todo.todo}</span>
           </label>
           <button data-testid='modify-button' onClick={handleEditMode}>
@@ -51,3 +47,5 @@ export const TodoItem = ({ todo, setTodos }) => {
     </li>
   );
 };
+
+export const MemoizedTodoItem = memo(TodoItem);

@@ -3,10 +3,10 @@ import { Fragment, useState } from 'react';
 const TodoItem = ({ contents, updateTodo, deleteTodo }) => {
   const { id, isCompleted, todo } = contents;
   const [modifyToggle, setModifyToggle] = useState(false);
-  const [editTodo, setEditTodo] = useState(todo);
+  const [modifiedTodo, setModifiedTodo] = useState(todo);
 
   const handleUpdate = async (id, todo, isCompleted) => {
-    if (!editTodo) {
+    if (!modifiedTodo) {
       alert('할 일을 입력해 주세요');
       return;
     }
@@ -23,7 +23,7 @@ const TodoItem = ({ contents, updateTodo, deleteTodo }) => {
   };
 
   const handleCancel = () => {
-    setEditTodo(todo);
+    setModifiedTodo(todo);
     setModifyToggle((props) => !props);
   };
 
@@ -40,12 +40,12 @@ const TodoItem = ({ contents, updateTodo, deleteTodo }) => {
             <input
               data-testid='modify-input'
               type='text'
-              value={editTodo}
+              value={modifiedTodo}
               autoFocus
-              onChange={(e) => setEditTodo(e.target.value)}
+              onChange={(e) => setModifiedTodo(e.target.value)}
             />
             <button
-              onClick={() => handleUpdate(id, editTodo, isCompleted)}
+              onClick={() => handleUpdate(id, modifiedTodo, isCompleted)}
               data-testid='submit-button'
             >
               제출

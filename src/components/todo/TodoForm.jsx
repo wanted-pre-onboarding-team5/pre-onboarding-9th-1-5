@@ -7,19 +7,19 @@ const TodoForm = ({ postTodo }) => {
     isCompleted: false,
     userId: 0,
   };
-  const [todo, setTodo] = useState(initialState);
+  const [todoData, setTodoData] = useState(initialState);
 
   const onChangeHandler = (e) => {
     e.preventDefault();
     const { name, value } = e.target;
-    setTodo({ ...todo, [name]: value });
+    setTodoData({ ...todoData, [name]: value });
   };
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    if (todo.todo.trim() === '') return;
-    postTodo(todo.todo);
-    setTodo(initialState);
+    if (todoData.todo.trim() === '') return;
+    postTodo(todoData.todo);
+    setTodoData(initialState);
   };
 
   return (
@@ -33,7 +33,7 @@ const TodoForm = ({ postTodo }) => {
         <input
           type='text'
           name='todo'
-          value={todo.todo}
+          value={todoData.todo}
           onChange={onChangeHandler}
           data-testid='new-todo-input'
           autoFocus

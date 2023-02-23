@@ -3,11 +3,11 @@ import { useInput } from 'hooks/useInput';
 import { postTodo } from 'apis/todoApi';
 
 const AddTodoItem = ({ setIsUpdated }) => {
-  const { value, onChange, onReset } = useInput();
+  const { value: addTodoValue, onChange: onChangeTodo, onReset } = useInput();
 
   const onClickHandler = async (e) => {
     e.preventDefault();
-    await postTodo(value);
+    await postTodo(addTodoValue);
     setIsUpdated(true);
     onReset();
   };
@@ -16,9 +16,9 @@ const AddTodoItem = ({ setIsUpdated }) => {
       <input
         data-testid='new-todo-input'
         name='addTodo'
-        onChange={onChange}
+        onChange={onChangeTodo}
         type='text'
-        value={value}
+        value={addTodoValue}
       />
       <button onClick={onClickHandler} data-testid='new-todo-add-button'>
         추가

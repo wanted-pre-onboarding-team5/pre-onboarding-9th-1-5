@@ -2,13 +2,13 @@ import React from 'react';
 import { useInput } from 'hooks/useInput';
 import { postTodo } from 'apis/todoApi';
 
-const AddTodoItem = ({ todos, setTodos }) => {
-  const { value, onChange, onReset } = useInput();
+const AddTodoItem = ({ setIsUpdated }) => {
+  const { value: addTodoValue, onChange: onChangeTodo, onReset } = useInput();
 
   const onClickHandler = async (e) => {
     e.preventDefault();
-    const newTodo = await postTodo(value);
-    setTodos([...todos, newTodo]);
+    await postTodo(addTodoValue);
+    setIsUpdated(true);
     onReset();
   };
   return (
@@ -16,9 +16,9 @@ const AddTodoItem = ({ todos, setTodos }) => {
       <input
         data-testid='new-todo-input'
         name='addTodo'
-        onChange={onChange}
+        onChange={onChangeTodo}
         type='text'
-        value={value}
+        value={addTodoValue}
       />
       <button onClick={onClickHandler} data-testid='new-todo-add-button'>
         추가

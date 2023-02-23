@@ -5,24 +5,30 @@ import React, { useEffect, useState } from 'react';
 
 export const Todo = () => {
   const [todos, setTodos] = useState([]);
-
-  const todoLists = async () => {
+  const [isUpdated, setIsUpdated] = useState(false);
+  const getTodoLists = async () => {
     const todoLists = await getTodos();
     setTodos(todoLists);
+    setIsUpdated(false);
   };
 
   useEffect(() => {
-    todoLists();
-  }, []);
+    getTodoLists();
+  }, [isUpdated]);
 
   return (
     <>
       <div>Todo</div>
-      <AddTodoItem setTodos={setTodos} todos={todos} />
+      <AddTodoItem
+        setTodos={setTodos}
+        todos={todos}
+        isUpdated={isUpdated}
+        setIsUpdated={setIsUpdated}
+      />
       {todos.map((todo) => {
         return (
           <div key={todo.id}>
-            <TodoItem todo={todo} />
+            <TodoItem todo={todo} setTodos={setTodos} todos={todos} />
           </div>
         );
       })}

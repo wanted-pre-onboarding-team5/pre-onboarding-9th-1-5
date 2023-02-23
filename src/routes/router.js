@@ -1,9 +1,14 @@
 import { SignIn, SignUp, Todo, Error } from 'pages';
 import { authLoader } from 'routes/loaders/authLoader';
 import { todoLoader } from 'routes/loaders/todoLoader';
+import { rootLoader } from 'routes/loaders/rootLoader';
 import { createBrowserRouter } from 'react-router-dom';
 
 const routes = [
+  {
+    path: '/',
+    loader: rootLoader,
+  },
   {
     path: '/signin',
     element: <SignIn />,

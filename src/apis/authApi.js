@@ -27,7 +27,6 @@ export const postSignIn = async (userAccount) => {
     if (response.status === 200) {
       localStorage.setItem(STORAGE.userToken, accessToken);
     }
-    return { accessToken };
   } catch (err) {
     console.error(err);
   }

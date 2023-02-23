@@ -1,6 +1,6 @@
 import { useLoaderData } from 'react-router-dom';
 import { useInput } from 'hooks/useInput';
-import { createTodo, getTodos } from 'apis/todoApi';
+import { createTodo, getTodos, updateTodo } from 'apis/todoApi';
 import { useEffect, useState } from 'react';
 import { TodoListItem } from 'components/TodoListItem';
 
@@ -28,6 +28,11 @@ export const Todo = () => {
     resetTodo();
   };
 
+  const handleCheckBoxChange = async (id, todo, isCompleted) => {
+    await updateTodo(id, { todo, isCompleted: !isCompleted });
+    setIsUpdated(true);
+  };
+
   return (
     <>
       <h1>✅ Todo List</h1>
@@ -49,6 +54,7 @@ export const Todo = () => {
               isCompleted={isCompleted}
               isUpdated={isUpdated}
               setIsUpdated={setIsUpdated}
+              onCheckBoxChange={() => handleCheckBoxChange(id, todo, isCompleted)}
             />
           );
         })}

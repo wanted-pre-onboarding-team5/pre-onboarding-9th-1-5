@@ -2,6 +2,7 @@ import { useLoaderData } from 'react-router-dom';
 import { useInput } from 'hooks/useInput';
 import { createTodo, getTodos, updateTodo, deleteTodo } from 'apis/todoApi';
 import { useEffect, useState, useCallback } from 'react';
+import { validator } from 'utils';
 
 export const useTodo = () => {
   const { data: loadedTodoData } = useLoaderData();
@@ -27,10 +28,11 @@ export const useTodo = () => {
     async (e) => {
       e.preventDefault();
       try {
-        if (!todoValue) return;
-        await createTodo({ todo: todoValue });
-        setIsUpdated(true);
-        resetTodo();
+        if (validator.checkTodo(todoValue)) {
+          await createTodo({ todo: todoValue });
+          setIsUpdated(true);
+          resetTodo();
+        }
       } catch (error) {
         console.error(error);
       }

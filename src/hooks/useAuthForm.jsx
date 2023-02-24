@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { useInput } from 'hooks/useInput';
-import { validateAccount } from 'utils';
+import { validator } from 'utils';
 
 export const useAuthForm = () => {
   const emailRef = useRef(null);
@@ -10,7 +10,7 @@ export const useAuthForm = () => {
   const isValidAccount = () => {
     const email = emailRef.current?.value;
     const password = passwordRef.current?.value;
-    const isValid = validateAccount(email, password);
+    const isValid = validator.checkAccount(email, password);
     return isValid;
   };
 

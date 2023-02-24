@@ -1,6 +1,7 @@
 import { updateTodo } from 'apis/todoApi';
 import { useInput } from 'hooks/useInput';
 import { useCallback, useEffect, useState, useRef } from 'react';
+import { validator } from 'utils';
 
 export const useTodoItem = (id, setIsUpdated, isUpdated, todo, isCompleted) => {
   const { value: todoValue, onChange: onTodoChange } = useInput(todo);
@@ -15,6 +16,10 @@ export const useTodoItem = (id, setIsUpdated, isUpdated, todo, isCompleted) => {
   const handleUpdateTodo = useCallback(async () => {
     try {
       const todoRefValue = todoItemRef?.current.value;
+      if (validator.isSame([todoValue, todoRefValue])) {
+        setIsEdit(false);
+        throw new Error();
+      }
       await updateTodo(id, { todo: todoRefValue, isCompleted });
       setIsUpdated(true);
       setUpdatedTodoId(id);

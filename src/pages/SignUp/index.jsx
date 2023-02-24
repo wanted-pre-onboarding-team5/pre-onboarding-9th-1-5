@@ -1,4 +1,5 @@
 import { postSignUp } from 'apis/loginApi';
+import { PATH } from 'constants';
 import { useCheckAccount } from 'hooks/useCheckAccount';
 import { useMovePage } from 'hooks/useMovePage';
 
@@ -13,7 +14,7 @@ export const SignUp = () => {
     handlePasswordChange,
   } = useCheckAccount();
 
-  const [goSignIn] = useMovePage('/signin');
+  const [goSignIn] = useMovePage(PATH.signIn);
 
   const handleSignUp = async (e) => {
     e.preventDefault();

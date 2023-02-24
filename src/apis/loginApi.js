@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { PATH } from 'constants';
 
 import { USER_TOKEN_KEY } from 'constants';
 
@@ -14,7 +15,7 @@ const loginInstance = axios.create(axiosConfig);
 
 export const postSignUp = async (userAccount) => {
   try {
-    await loginInstance.post('/signup', userAccount);
+    await loginInstance.post(PATH.signUp, userAccount);
   } catch (err) {
     console.error(err);
   }
@@ -22,7 +23,7 @@ export const postSignUp = async (userAccount) => {
 
 export const postSignIn = async (userAccount) => {
   try {
-    const response = await loginInstance.post('/signin', userAccount);
+    const response = await loginInstance.post(PATH.signIn, userAccount);
     const { access_token: accessToken } = response.data;
     if (response.status === 200) {
       localStorage.setItem(USER_TOKEN_KEY, accessToken);

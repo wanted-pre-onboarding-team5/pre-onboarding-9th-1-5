@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import { useInput } from 'hooks/useInput';
+import { validateAccount } from 'utils';
 
 export const useCheckAccount = () => {
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
@@ -11,10 +12,8 @@ export const useCheckAccount = () => {
   const isValidAccount = () => {
     const email = emailRef.current?.value;
     const password = passwordRef.current?.value;
-    const emailReg = /@/;
-    if (!email || !emailReg.test(email)) return false;
-    if (!password || password.length < 8) return false;
-    return true;
+    const isValid = validateAccount(email, password);
+    return isValid;
   };
 
   const checkAccountAndSetButton = () => {

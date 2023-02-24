@@ -1,4 +1,4 @@
-import { useCheckAccount } from 'hooks/useCheckAccount';
+import { useAuthForm } from 'hooks/useAuthForm';
 import { useMovePage } from 'hooks/useMovePage';
 import { postSignIn } from 'apis/authApi';
 import { PATH } from 'constants';
@@ -12,7 +12,7 @@ export const SignIn = () => {
     passwordInput,
     handleEmailChange,
     handlePasswordChange,
-  } = useCheckAccount();
+  } = useAuthForm();
 
   const [goTodo, goSignUp] = useMovePage([PATH.todo, PATH.signUp]);
 

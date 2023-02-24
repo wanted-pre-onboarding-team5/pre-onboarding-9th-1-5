@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import { useInput } from 'hooks/useInput';
 import { validateAccount } from 'utils';
 
-export const useCheckAccount = () => {
+export const useAuthForm = () => {
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const emailRef = useRef(null);
   const passwordRef = useRef(null);

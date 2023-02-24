@@ -13,23 +13,14 @@ const axiosConfig = {
 
 const loginInstance = axios.create(axiosConfig);
 
-export const postSignUp = async (userAccount) => {
-  try {
-    await loginInstance.post(PATH_API.signUp, userAccount);
-  } catch (err) {
-    console.error(err);
-  }
+export const postSignUp = (userAccount) => {
+  return loginInstance.post(PATH_API.signUp, userAccount);
 };
 
-export const postSignIn = async (userAccount) => {
-  try {
-    const response = await loginInstance.post(PATH_API.signIn, userAccount);
-    const { access_token: accessToken } = response.data;
-    if (response.status === 200) {
-      localStorage.setItem(USER_TOKEN_KEY, accessToken);
-    }
-    return { accessToken };
-  } catch (err) {
-    console.error(err);
-  }
+export const postSignIn = (userAccount) => {
+  return loginInstance.post(PATH_API.signIn, userAccount);
+};
+
+export const postSignOut = () => {
+  localStorage.removeItem(USER_TOKEN_KEY);
 };

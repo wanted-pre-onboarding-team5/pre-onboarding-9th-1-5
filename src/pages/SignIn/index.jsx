@@ -1,24 +1,31 @@
 import { useAuthForm } from 'hooks/useAuthForm';
 import { useMovePage } from 'hooks/useMovePage';
 import { postSignIn } from 'apis/authApi';
-import { PATH_ROUTE } from 'constants';
+import { PATH_ROUTE, USER_TOKEN_KEY } from 'constants';
 
 export const SignIn = () => {
   const { emailRef, passwordRef, userAccount, handleAccountChange, isValidAccount } = useAuthForm();
 
   const [goTodo, goSignUp] = useMovePage([PATH_ROUTE.todo, PATH_ROUTE.signUp]);
 
-  const handleSignIn = async (e) => {
+  const handleSignIn = async ({ e, userAccount }) => {
     e.preventDefault();
-    const { accessToken } = await postSignIn(userAccount);
-    if (!accessToken) return;
-    goTodo();
+    try {
+      const response = await postSignIn(userAccount);
+      const { access_token: accessToken } = response.data;
+      if (accessToken) {
+        localStorage.setItem(USER_TOKEN_KEY, accessToken);
+        goTodo();
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
     <>
       <h1>로그인</h1>
-      <form onSubmit={handleSignIn}>
+      <form onSubmit={(e) => handleSignIn({ e, userAccount })}>
         <input
           name='email'
           data-testid='email-input'

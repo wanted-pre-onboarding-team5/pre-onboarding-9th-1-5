@@ -8,10 +8,14 @@ export const SignUp = () => {
 
   const [goSignIn] = useMovePage(PATH_ROUTE.signIn);
 
-  const handleSignUp = async (e) => {
+  const handleSignUp = async ({ e, userAccount }) => {
     e.preventDefault();
-    await postSignUp(userAccount);
-    goSignIn();
+    try {
+      await postSignUp(userAccount);
+      goSignIn();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

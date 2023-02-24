@@ -1,4 +1,4 @@
-import { useTodoItem } from './hook';
+import { useTodoItem } from './useTodoItem';
 
 export const TodoItem = ({
   id,

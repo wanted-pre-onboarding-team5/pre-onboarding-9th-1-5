@@ -1,5 +1,5 @@
 import { TodoList } from 'components/TodoList';
-import { useTodo } from 'pages/Todo/hook';
+import { useTodo } from 'pages/Todo/useTodo';
 
 export const Todo = () => {
   const {

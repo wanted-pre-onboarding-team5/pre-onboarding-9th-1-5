@@ -1,6 +1,6 @@
 import { useCheckAccount } from 'hooks/useCheckAccount';
 import { useMovePage } from 'hooks/useMovePage';
-import { postSignIn } from 'apis/loginApi';
+import { postSignIn } from 'apis/authApi';
 import { PATH } from 'constants';
 
 export const SignIn = () => {

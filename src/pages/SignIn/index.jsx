@@ -8,7 +8,7 @@ export const SignIn = () => {
 
   const [goTodo, goSignUp] = useMovePage([PATH_ROUTE.todo, PATH_ROUTE.signUp]);
 
-  const handleSignIn = async ({ e, userAccount }) => {
+  const handleSignIn = async (e) => {
     e.preventDefault();
     try {
       const response = await postSignIn(userAccount);
@@ -25,7 +25,7 @@ export const SignIn = () => {
   return (
     <>
       <h1>로그인</h1>
-      <form onSubmit={(e) => handleSignIn({ e, userAccount })}>
+      <form onSubmit={handleSignIn}>
         <input
           name='email'
           data-testid='email-input'

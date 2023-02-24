@@ -8,7 +8,7 @@ export const SignUp = () => {
 
   const [goSignIn] = useMovePage(PATH_ROUTE.signIn);
 
-  const handleSignUp = async ({ e, userAccount }) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
     try {
       await postSignUp(userAccount);

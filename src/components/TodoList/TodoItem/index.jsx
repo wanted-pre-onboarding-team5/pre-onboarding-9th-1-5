@@ -9,13 +9,8 @@ export const TodoItem = ({
   setIsUpdated,
   isUpdated,
 }) => {
-  const { isEdit, onTodoChange, todoValue, handleUpdateTodo, changeEditState } = useTodoItem(
-    id,
-    setIsUpdated,
-    isUpdated,
-    todo,
-    isCompleted,
-  );
+  const { isEdit, onTodoChange, todoValue, handleUpdateTodo, changeEditState, todoItemRef } =
+    useTodoItem(id, setIsUpdated, isUpdated, todo, isCompleted);
 
   return (
     <li>
@@ -23,7 +18,12 @@ export const TodoItem = ({
         <input type='checkbox' checked={isCompleted} onChange={onCheckBoxChange} />
         {isEdit ? (
           <>
-            <input data-testid='modify-input' onChange={onTodoChange} value={todoValue} />
+            <input
+              data-testid='modify-input'
+              onChange={onTodoChange}
+              value={todoValue}
+              ref={todoItemRef}
+            />
             <button data-testid='submit-button' onClick={handleUpdateTodo}>
               제출
             </button>

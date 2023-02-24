@@ -23,37 +23,18 @@ todoInstance.interceptors.request.use(
   },
 );
 
-export const createTodo = async (newTodo) => {
-  try {
-    const response = await todoInstance.post(PATH_API.root, newTodo);
-    return response.data;
-  } catch (error) {
-    console.error(error);
-  }
+export const createTodo = (newTodo) => {
+  return todoInstance.post(PATH_API.root, newTodo);
 };
 
-export const getTodos = async () => {
-  try {
-    const response = await todoInstance.get(PATH_API.root);
-    return response.data;
-  } catch (error) {
-    console.error(error);
-  }
+export const getTodos = () => {
+  return todoInstance.get(PATH_API.root);
 };
 
-export const updateTodo = async (id, updatedTodo) => {
-  try {
-    const response = await todoInstance.put(`/${id}`, updatedTodo);
-    return response.data;
-  } catch (error) {
-    console.error(error);
-  }
+export const updateTodo = (id, updatedTodo) => {
+  return todoInstance.put(`/${id}`, updatedTodo);
 };
 
-export const deleteTodo = async (id) => {
-  try {
-    await todoInstance.delete(`/${id}`);
-  } catch (error) {
-    console.error(error);
-  }
+export const deleteTodo = (id) => {
+  return todoInstance.delete(`/${id}`);
 };

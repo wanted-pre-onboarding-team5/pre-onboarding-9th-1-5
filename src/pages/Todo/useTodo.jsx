@@ -10,9 +10,13 @@ export const useTodo = () => {
   const { value: todoValue, onReset: resetTodo, onChange: onTodoChange } = useInput();
 
   const refetchTodos = async () => {
-    const refetchedTodos = await getTodos();
-    setTodos(refetchedTodos);
-    setIsUpdated(false);
+    try {
+      const { data: refetchedTodos } = await getTodos();
+      setTodos(refetchedTodos);
+      setIsUpdated(false);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
@@ -22,22 +26,34 @@ export const useTodo = () => {
   const handleCreateTodo = useCallback(
     async (e) => {
       e.preventDefault();
-      if (!todoValue) return;
-      await createTodo({ todo: todoValue });
-      setIsUpdated(true);
-      resetTodo();
+      try {
+        if (!todoValue) return;
+        await createTodo({ todo: todoValue });
+        setIsUpdated(true);
+        resetTodo();
+      } catch (error) {
+        console.error(error);
+      }
     },
     [todoValue],
   );
 
   const handleCheckBoxChange = useCallback(async (id, todo, isCompleted) => {
-    await updateTodo(id, { todo, isCompleted: !isCompleted });
-    setIsUpdated(true);
+    try {
+      await updateTodo(id, { todo, isCompleted: !isCompleted });
+      setIsUpdated(true);
+    } catch (error) {
+      console.error(error);
+    }
   }, []);
 
   const handleDeleteClick = useCallback(async (id) => {
-    await deleteTodo(id);
-    setIsUpdated(true);
+    try {
+      await deleteTodo(id);
+      setIsUpdated(true);
+    } catch (error) {
+      console.error(error);
+    }
   }, []);
 
   return {

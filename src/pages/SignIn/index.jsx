@@ -40,6 +40,7 @@ export const SignIn = () => {
           value={userAccount.password}
           onChange={handleAccountChange}
           type='password'
+          autoComplete='off'
         />
         <button type='submit' data-testid='signin-button' disabled={!isValidAccount()}>
           로그인하기

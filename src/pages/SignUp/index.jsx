@@ -36,6 +36,7 @@ export const SignUp = () => {
           value={userAccount.password}
           onChange={handleAccountChange}
           type='password'
+          autoComplete='off'
         />
         <button type='submit' data-testid='signup-button' disabled={!isValidAccount()}>
           회원가입하기

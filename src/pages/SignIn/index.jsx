@@ -29,19 +29,19 @@ export const SignIn = () => {
       <h1>로그인</h1>
       <form onSubmit={handleSignIn}>
         <input
-          data-testid="email-input"
+          data-testid='email-input'
           ref={emailRef}
           value={emailInput}
           onChange={handleEmailChange}
         />
         <input
-          data-testid="password-input"
+          data-testid='password-input'
           ref={passwordRef}
           value={passwordInput}
           onChange={handlePasswordChange}
-          type="password"
+          type='password'
         />
-        <button type="submit" data-testid="signin-button" disabled={isButtonDisabled}>
+        <button type='submit' data-testid='signin-button' disabled={isButtonDisabled}>
           로그인하기
         </button>
       </form>

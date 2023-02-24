@@ -1,13 +1,21 @@
-import { useInput } from 'hooks/useInput';
-import { useState } from 'react';
+import { useTodoItem } from './hook';
 
-export const TodoListItem = ({ todo, isCompleted, onCheckBoxChange, onDelete }) => {
-  const [isEdit, setIsEdit] = useState(false);
-  const { value: todoValue, onChange: onTodoChange } = useInput(todo);
-
-  const changeEditState = () => {
-    setIsEdit((prev) => !prev);
-  };
+export const TodoItem = ({
+  id,
+  todo,
+  isCompleted,
+  onCheckBoxChange,
+  onDelete,
+  setIsUpdated,
+  isUpdated,
+}) => {
+  const { isEdit, onTodoChange, todoValue, handleUpdateTodo, changeEditState } = useTodoItem(
+    id,
+    setIsUpdated,
+    isUpdated,
+    todo,
+    isCompleted,
+  );
 
   return (
     <li>
@@ -16,7 +24,9 @@ export const TodoListItem = ({ todo, isCompleted, onCheckBoxChange, onDelete }) 
         {isEdit ? (
           <>
             <input data-testid='modify-input' onChange={onTodoChange} value={todoValue} />
-            <button data-testid='submit-button'>제출</button>
+            <button data-testid='submit-button' onClick={handleUpdateTodo}>
+              제출
+            </button>
             <button data-testid='cancel-button' onClick={changeEditState}>
               취소
             </button>

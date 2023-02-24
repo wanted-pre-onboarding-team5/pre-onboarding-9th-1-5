@@ -1,32 +1,16 @@
-import { useLoaderData } from 'react-router-dom';
-import { useInput } from 'hooks/useInput';
-import { createTodo, getTodos } from 'apis/todoApi';
-import { useEffect, useState } from 'react';
-import { TodoListItem } from 'components/TodoListItem';
-
+import { TodoItem } from 'components/TodoItem';
+import { useTodo } from 'pages/Todo/hook';
 export const Todo = () => {
-  const { data: loadedTodoData } = useLoaderData();
-  const [todos, setTodos] = useState(loadedTodoData);
-  const [isUpdated, setIsUpdated] = useState(false);
-  const { value: todoValue, onReset: resetTodo, onChange: onTodoChange } = useInput();
-
-  const refetchTodos = async () => {
-    const refetchedTodos = await getTodos();
-    setTodos(refetchedTodos);
-    setIsUpdated(false);
-  };
-
-  useEffect(() => {
-    refetchTodos();
-  }, [isUpdated]);
-
-  const handleCreateTodo = async (e) => {
-    e.preventDefault();
-    if (!todoValue) return;
-    await createTodo({ todo: todoValue });
-    setIsUpdated(true);
-    resetTodo();
-  };
+  const {
+    todos,
+    todoValue,
+    isUpdated,
+    setIsUpdated,
+    onTodoChange,
+    handleCreateTodo,
+    handleCheckBoxChange,
+    handleDeleteClick,
+  } = useTodo();
 
   return (
     <>
@@ -41,7 +25,18 @@ export const Todo = () => {
       <h3>📄 나의 할 일 목록</h3>
       <ul>
         {todos.map(({ id, todo, isCompleted }) => {
-          return <TodoListItem key={id} id={id} todo={todo} isCompleted={isCompleted} />;
+          return (
+            <TodoItem
+              key={id}
+              id={id}
+              todo={todo}
+              isCompleted={isCompleted}
+              isUpdated={isUpdated}
+              setIsUpdated={setIsUpdated}
+              onCheckBoxChange={() => handleCheckBoxChange(id, todo, isCompleted)}
+              onDelete={() => handleDeleteClick(id)}
+            />
+          );
         })}
       </ul>
     </>

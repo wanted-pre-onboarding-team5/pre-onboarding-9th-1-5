@@ -1,7 +1,7 @@
 import { useAuthForm } from 'hooks/useAuthForm';
 import { useMovePage } from 'hooks/useMovePage';
 import { postSignIn } from 'apis/authApi';
-import { PATH } from 'constants';
+import { PATH_ROUTE } from 'constants';
 
 export const SignIn = () => {
   const {
@@ -14,7 +14,7 @@ export const SignIn = () => {
     handlePasswordChange,
   } = useAuthForm();
 
-  const [goTodo, goSignUp] = useMovePage([PATH.todo, PATH.signUp]);
+  const [goTodo, goSignUp] = useMovePage([PATH_ROUTE.todo, PATH_ROUTE.signUp]);
 
   const handleSignIn = async (e) => {
     e.preventDefault();

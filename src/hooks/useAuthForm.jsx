@@ -8,8 +8,8 @@ export const useAuthForm = () => {
   const { value: userAccount, setValue: setUserAccount } = useInput({ email: '', password: '' });
 
   const isValidAccount = () => {
-    const email = emailRef.current?.value;
-    const password = passwordRef.current?.value;
+    const email = emailRef.current?.value || '';
+    const password = passwordRef.current?.value || '';
     const isValid = validator.checkAccount(email, password);
     return isValid;
   };

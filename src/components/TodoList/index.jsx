@@ -8,7 +8,6 @@ export const TodoList = memo(function TodoList({
   onCheckBoxChange,
   onDeleteClick,
 }) {
-  console.log('render LIST');
   return (
     <ul>
       {todos.map(({ id, todo, isCompleted }) => {

@@ -4,21 +4,13 @@ import { postSignIn } from 'apis/authApi';
 import { PATH_ROUTE } from 'constants';
 
 export const SignIn = () => {
-  const {
-    isButtonDisabled,
-    emailRef,
-    passwordRef,
-    emailInput,
-    passwordInput,
-    handleEmailChange,
-    handlePasswordChange,
-  } = useAuthForm();
+  const { emailRef, passwordRef, userAccount, handleAccountChange, isValidAccount } = useAuthForm();
 
   const [goTodo, goSignUp] = useMovePage([PATH_ROUTE.todo, PATH_ROUTE.signUp]);
 
   const handleSignIn = async (e) => {
     e.preventDefault();
-    const { accessToken } = await postSignIn({ email: emailInput, password: passwordInput });
+    const { accessToken } = await postSignIn(userAccount);
     if (!accessToken) return;
     goTodo();
   };
@@ -28,19 +20,21 @@ export const SignIn = () => {
       <h1>로그인</h1>
       <form onSubmit={handleSignIn}>
         <input
+          name='email'
           data-testid='email-input'
           ref={emailRef}
-          value={emailInput}
-          onChange={handleEmailChange}
+          value={userAccount.email}
+          onChange={handleAccountChange}
         />
         <input
+          name='password'
           data-testid='password-input'
           ref={passwordRef}
-          value={passwordInput}
-          onChange={handlePasswordChange}
+          value={userAccount.password}
+          onChange={handleAccountChange}
           type='password'
         />
-        <button type='submit' data-testid='signin-button' disabled={isButtonDisabled}>
+        <button type='submit' data-testid='signin-button' disabled={!isValidAccount()}>
           로그인하기
         </button>
       </form>

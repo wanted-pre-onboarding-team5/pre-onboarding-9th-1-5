@@ -1,13 +1,11 @@
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { useInput } from 'hooks/useInput';
 import { validateAccount } from 'utils';
 
 export const useAuthForm = () => {
-  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
-  const { value: emailInput, setValue: setEmailInput } = useInput('');
-  const { value: passwordInput, setValue: setPasswordInput } = useInput('');
+  const { value: userAccount, setValue: setUserAccount } = useInput({ email: '', password: '' });
 
   const isValidAccount = () => {
     const email = emailRef.current?.value;
@@ -16,28 +14,16 @@ export const useAuthForm = () => {
     return isValid;
   };
 
-  const checkAccountAndSetButton = () => {
-    const isValid = isValidAccount();
-    setIsButtonDisabled(!isValid);
-  };
-
-  const handleEmailChange = (e) => {
-    setEmailInput(e.target.value);
-    checkAccountAndSetButton();
-  };
-
-  const handlePasswordChange = (e) => {
-    setPasswordInput(e.target.value);
-    checkAccountAndSetButton();
+  const handleAccountChange = (e) => {
+    const { name, value } = e.target;
+    setUserAccount({ ...userAccount, [name]: value });
   };
 
   return {
-    isButtonDisabled,
     emailRef,
     passwordRef,
-    emailInput,
-    passwordInput,
-    handleEmailChange,
-    handlePasswordChange,
+    userAccount,
+    handleAccountChange,
+    isValidAccount,
   };
 };

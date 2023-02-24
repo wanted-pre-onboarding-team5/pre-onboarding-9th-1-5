@@ -1,9 +1,9 @@
 import axios from 'axios';
-
+import { API_PATH } from 'constants';
 import { getUserToken } from 'utils';
 
 const axiosConfig = {
-  baseURL: `${process.env.REACT_APP_API_URL}/todos`,
+  baseURL: `${process.env.REACT_APP_API_URL}${API_PATH.todos}`,
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
@@ -25,7 +25,7 @@ todoInstance.interceptors.request.use(
 
 export const createTodo = async (newTodo) => {
   try {
-    const response = await todoInstance.post('', newTodo);
+    const response = await todoInstance.post(API_PATH.root, newTodo);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -34,7 +34,7 @@ export const createTodo = async (newTodo) => {
 
 export const getTodos = async () => {
   try {
-    const response = await todoInstance.get('');
+    const response = await todoInstance.get(API_PATH.root);
     return response.data;
   } catch (error) {
     console.error(error);

@@ -1,11 +1,11 @@
-export const PATH = Object.freeze({
+export const PATH_ROUTE = Object.freeze({
   root: '/',
   signIn: '/signin',
   signUp: '/signup',
   todo: '/todo',
 });
 
-export const API_PATH = Object.freeze({
+export const PATH_API = Object.freeze({
   root: '/',
   signIn: '/signin',
   signUp: '/signup',
